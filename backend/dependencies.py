@@ -47,7 +47,7 @@ def create_token(username: str, is_admin: bool) -> str:
 def break_token(token: str) -> dict[str, Any]:
     return decode(token, key=JWT_KEY, algorithms=[JWT_ALGORITHM])
 
-def authenticate_user(token: str = Depends(oauth2_scheme)) -> None:
+def authenticate_user(token: str = oauth2_dep) -> None:
     try:
         break_token(token)
     except ExpiredSignatureError:
@@ -55,7 +55,7 @@ def authenticate_user(token: str = Depends(oauth2_scheme)) -> None:
     except InvalidTokenError:
         raise HTTPException(status_code=401, detail='Authentication failed')
 
-def authenticate_admin(token: str = Depends(oauth2_scheme)) -> None:
+def authenticate_admin(token: str = oauth2_dep) -> None:
     try:
         if not break_token(token)['adm']:
             raise NotAdminError()
