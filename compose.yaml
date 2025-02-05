@@ -1,0 +1,27 @@
+name: shelter-service
+services:
+  db:
+    build: .\database
+    container_name: database
+    env_file:
+      - ".env.example"
+    ports:
+      - "3306:3306"
+  back:
+    build: .\backend
+    container_name: backend
+    env_file:
+      - ".env.example"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  front:
+    build: .\frontend
+    container_name: frontend
+    env_file:
+      - ".env.example"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - back

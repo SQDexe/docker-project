@@ -1,0 +1,12 @@
+# Output
+**/__pycache__
+**/node_modules
+**/.svelte-kit
+**/build
+
+# Env
+.env
+!.env.example
+
+# Git
+/.git
