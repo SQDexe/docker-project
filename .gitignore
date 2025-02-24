@@ -6,7 +6,8 @@
 
 # Env
 .env
-!.env.example
+!*.exmaple
 
 # Git
 /.git
+/.vscode

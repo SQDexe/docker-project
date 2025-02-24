@@ -1,6 +1,5 @@
 fastapi[standard]==0.115.8
-mysql==0.0.3
-mysql-connector-python==9.2.0
+mariadb==1.1.12
 pydantic==2.10.6
 PyJWT==2.10.1
 python-dotenv==1.0.1

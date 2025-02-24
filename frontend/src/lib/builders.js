@@ -1,4 +1,4 @@
-import { env } from '$env/dynamic/public';
+import { PUBLIC_API_HOST, PUBLIC_API_PORT } from '$env/static/public';
 
 
 const paths = base => Object.freeze({
@@ -34,7 +34,7 @@ export class PathBuilder {
     }
 
 export class FetchBuilder {
-    static #host = `http://${env.PUBLIC_API_HOST}:${env.PUBLIC_API_PORT}`;
+    static #host = `http://${PUBLIC_API_HOST}:${PUBLIC_API_PORT}`;
     static #base = Object.freeze({
         data: this.#host + '/data',
         adoptions: this.#host + '/adoptions',

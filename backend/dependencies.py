@@ -14,14 +14,15 @@ from fastapi.security import OAuth2PasswordBearer
 
 load_dotenv()
 
-MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD = (
-    getenv('MYSQL_DATABASE'),
-    getenv('MYSQL_USER'),
-    getenv('MYSQL_PASSWORD'),
+MARIADB_DATABASE, MARIADB_USER, MARIADB_PASSWORD = (
+    getenv('MARIADB_DATABASE'),
+    getenv('MARIADB_USER'),
+    getenv('MARIADB_PASSWORD'),
     )
-DB_HOSTNAME, DB_PORT = (
+DB_HOSTNAME, DB_PORT, DB_CONNECTOR = (
     getenv('DB_HOSTNAME'),
-    getenv('DB_PORT')
+    getenv('DB_PORT'),
+    getenv('DB_CONNECTOR')
     )
 JWT_KEY, JWT_ALGORITHM, JWT_EXPIRE_MINUTES = (
     getenv('JWT_KEY'),
@@ -65,9 +66,9 @@ def authenticate_admin(token: str = oauth2_dep) -> None:
         raise HTTPException(status_code=440, detail='Session expired')
     except InvalidTokenError:
         raise HTTPException(status_code=401, detail='Authentication failed')
-    
 
-engine = create_engine(f'mysql+mysqlconnector://{MYSQL_USER}:{MYSQL_PASSWORD}@{DB_HOSTNAME}:{DB_PORT}/{MYSQL_DATABASE}')
+
+engine = create_engine(f'{DB_CONNECTOR}://{MARIADB_USER}:{MARIADB_PASSWORD}@{DB_HOSTNAME}:{DB_PORT}/{MARIADB_DATABASE}')
 
 def get_session() -> Generator[Session, None, None]:
     with Session(engine) as session:

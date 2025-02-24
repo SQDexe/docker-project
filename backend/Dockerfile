@@ -1,6 +1,9 @@
-FROM python:3.13.1
+FROM python:3.13.2-alpine3.21
 
-COPY . /code
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+WORKDIR /code
 
-CMD ["fastapi", "run", "/code/app.py"]
+COPY . ./
+RUN apk add --no-cache mariadb-dev gcc musl-dev python3-dev && \
+    pip install --no-cache-dir --upgrade -r ./requirements.txt
+
+CMD ["fastapi", "run", "app.py"]
