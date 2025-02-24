@@ -20,11 +20,11 @@ async def login(login: Login, session: session_dep):
     return { 'access_token': create_token(username, is_admin), 'token_type': 'bearer' }
 
 
-@router.get('/data/adoptions', tags=['data', 'adoptions'], dependencies=[authenticate_user_dep], status_code=200)
+@router.get('/data/adoptions', tags=['data', 'adoptions'], dependencies=(authenticate_user_dep, ), status_code=200)
 async def get_data_adoption(session: session_dep):
     return { 'animal_ids': session.exec(select(Animals.id)).all() }
 
-@router.get('/data/animals', tags=['data', 'animals'], dependencies=[authenticate_user_dep], status_code=200)
+@router.get('/data/animals', tags=['data', 'animals'], dependencies=(authenticate_user_dep, ), status_code=200)
 async def get_data_animals():
     return {
         'species': ('dog', 'cat', 'lizard', 'bird', 'rodent'),

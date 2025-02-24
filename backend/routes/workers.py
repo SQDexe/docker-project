@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException
 from sqlmodel import select, update
 
 
-router = APIRouter(prefix='/workers', tags=['workers'], dependencies=[authenticate_admin_dep])
+router = APIRouter(prefix='/workers', tags=['workers'], dependencies=(authenticate_admin_dep, ))
 
 @router.get('/', status_code=200)
 async def view_workers(session: session_dep) -> list[Workers]:

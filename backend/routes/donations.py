@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException
 from sqlmodel import select, update
 
 
-router = APIRouter(prefix='/donations', tags=['donations'], dependencies=[authenticate_user_dep])
+router = APIRouter(prefix='/donations', tags=['donations'], dependencies=(authenticate_user_dep, ))
 
 @router.get('/', status_code=200)
 async def view_donations(session: session_dep):
